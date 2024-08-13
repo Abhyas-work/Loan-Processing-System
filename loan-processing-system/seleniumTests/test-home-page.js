@@ -9,16 +9,17 @@ const { Builder, By, until } = require('selenium-webdriver');
         console.log('Navigated to the homepage.');
 
         // Wait for and verify the title
-        let heading = await driver.wait(until.elementLocated(By.id('heading')), 10000);
+        let heading = await driver.wait(until.elementLocated(By.xpath('//h1[text()="PHANS BANK"]')), 10000);
+
         await driver.wait(until.elementIsVisible(heading), 10000);
         let headingText = await heading.getText();
-        if (headingText !== 'ABC BANK') {
+        if (headingText !== 'PHANS BANK') {
             throw new Error(`Heading text mismatch: expected 'ABC BANK', got '${headingText}'`);
         }
         console.log(`Heading text verified: ${headingText}`);
         await driver.sleep(500)
 
-        let subheading = await driver.wait(until.elementLocated(By.id('subheading')), 10000);
+        let subheading = await driver.wait(until.elementLocated(By.xpath('//h3[text()="Loan Processing Application"]')), 10000);
         await driver.wait(until.elementIsVisible(subheading), 10000);
         let subheadingText = await subheading.getText();
         if (subheadingText !== 'Loan Processing Application') {
@@ -26,6 +27,8 @@ const { Builder, By, until } = require('selenium-webdriver');
         }
         console.log(`Subheading text verified: ${subheadingText}`);
         await driver.sleep(500)
+
+        
 
 
         // Wait for and verify the welcome message and instructions
@@ -50,29 +53,12 @@ const { Builder, By, until } = require('selenium-webdriver');
         let p2 = await driver.wait(until.elementLocated(By.id('p2')), 10000);
         await driver.wait(until.elementIsVisible(p2), 10000);
         let p2Text = await p2.getText();
-        if (p2Text !== 'Your loan approved immediately using this cool and fully automated application.') {
-            throw new Error(`p2 text mismatch: expected 'Your loan approved immediately using this cool and fully automated application.', got '${p2Text}'`);
+        if (p2Text !== 'Your loan approved immediately using this cool and fully automated application. In order to Submit a new loan request, click on "Submit an application" on the right. For viewing existing loan applications, click on "View applications".') {
+            throw new Error(`p2 text mismatch: expected 'YYour loan approved immediately using this cool and fully automated application. In order to Submit a new loan request, click on "Submit an application" on the right. For viewing existing loan applications, click on "View applications".', got '${p2Text}'`);
         }
         console.log(`p2 text verified: ${p2Text}`);
         await driver.sleep(500)
 
-        let p3 = await driver.wait(until.elementLocated(By.id('p3')), 10000);
-        await driver.wait(until.elementIsVisible(p3), 10000);
-        let p3Text = await p3.getText();
-        if (p3Text !== 'In order to Submit a new loan request, click on "Submit an application" on the right.') {
-            throw new Error(`p3 text mismatch: expected 'In order to Submit a new loan request, click on "Submit an application" on the right.', got '${p3Text}'`);
-        }
-        console.log(`p3 text verified: ${p3Text}`);
-        await driver.sleep(500)
-
-        let p4 = await driver.wait(until.elementLocated(By.id('p4')), 10000);
-        await driver.wait(until.elementIsVisible(p4), 10000);
-        let p4Text = await p4.getText();
-        if (p4Text !== 'For viewing existing loan applications, click on "View applications".') {
-            throw new Error(`p4 text mismatch: expected 'For viewing existing loan applications, click on "View applications".', got '${p4Text}'`);
-        }
-        console.log(`p4 text verified: ${p4Text}`);
-        await driver.sleep(500)
 
         // Wait for and verify the buttons
         let submitLoanButton = await driver.wait(until.elementLocated(By.id('submitloan')), 10000);
